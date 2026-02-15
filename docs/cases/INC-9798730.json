@@ -1,0 +1,58 @@
+{
+  "meta": {
+    "generated_at": "2026-02-15T17:18:33.258820Z",
+    "version": "1.0",
+    "tool": "AI SOC Triage Assistant"
+  },
+  "incident": {
+    "incident_id": "INC-9798730",
+    "incident_type": "Web Application Attack",
+    "key": {
+      "host": "srv-web-01",
+      "user": "-",
+      "src_ip": "45.33.32.156"
+    },
+    "time_range": {
+      "start": "2026-02-14T17:56:08.535041+00:00",
+      "end": "2026-02-14T23:07:08.535041+00:00",
+      "duration_minutes": 311.0
+    },
+    "signals": [
+      {
+        "signal": "suspicious_web_paths",
+        "count": 5,
+        "paths": [
+          "/phpMyAdmin",
+          "/admin",
+          "/backup.zip",
+          "/.env"
+        ],
+        "description": "Access to sensitive paths: /phpMyAdmin, /admin, /backup.zip, /.env"
+      }
+    ],
+    "event_count": 9
+  },
+  "triage": {
+    "severity": "medium",
+    "severity_score": 3.0,
+    "confidence": 0.74,
+    "mitre": [
+      {
+        "signal": "suspicious_web_paths",
+        "technique": "T1190",
+        "technique_name": "Exploit Public-Facing Application",
+        "tactic": "Initial Access",
+        "url": "https://attack.mitre.org/techniques/T1190/",
+        "description": "Adversaries may exploit vulnerabilities in public-facing applications."
+      }
+    ],
+    "recommended_actions": [
+      "\ud83c\udf10 Inspect web server logs for suspicious requests and payloads",
+      "\ud83d\udd12 Validate that sensitive files (.env, backups) are not publicly accessible",
+      "\ud83d\udd04 Rotate any potentially leaked secrets or API keys",
+      "\ud83d\udccb Review web application firewall (WAF) rules and consider blocking patterns"
+    ],
+    "requires_immediate_attention": false
+  },
+  "summary": "## Incident Summary: INC-9798730\n\n**Type:** Web Application Attack\n**Severity:** MEDIUM (score: 3.0)\n**Confidence:** 74%\n\n### Affected Assets\n- **Host:** srv-web-01\n- **User:** -\n- **Source IP:** 45.33.32.156\n\n### Timeline\n- **Start:** 2026-02-14T17:56:08.535041+00:00\n- **End:** 2026-02-14T23:07:08.535041+00:00\n- **Duration:** 311.0 minutes\n- **Total Events:** 9\n\n### What Happened\n- Access to sensitive paths: /phpMyAdmin, /admin, /backup.zip, /.env\n\n### Attack Narrative\nFollowing initial access, suspicious web requests were observed targeting sensitive paths (/phpMyAdmin, /admin, /backup.zip, /.env), suggesting reconnaissance or data exfiltration attempts.\n\n### MITRE ATT&CK Mapping\n- **T1190** - Exploit Public-Facing Application (Initial Access)\n  - Adversaries may exploit vulnerabilities in public-facing applications.\n\n### Recommended Actions\n1. \ud83c\udf10 Inspect web server logs for suspicious requests and payloads\n2. \ud83d\udd12 Validate that sensitive files (.env, backups) are not publicly accessible\n3. \ud83d\udd04 Rotate any potentially leaked secrets or API keys\n4. \ud83d\udccb Review web application firewall (WAF) rules and consider blocking patterns\n"
+}

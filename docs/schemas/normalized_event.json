@@ -1,0 +1,72 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Normalized Security Event",
+  "description": "Common schema for all security log sources in the AI SOC Analyst",
+  "type": "object",
+  "properties": {
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO-8601 formatted timestamp of the event"
+    },
+    "source": {
+      "type": "string",
+      "enum": ["auth", "web", "fw", "endpoint", "other"],
+      "description": "Log source type"
+    },
+    "host": {
+      "type": ["string", "null"],
+      "description": "Hostname where the event occurred"
+    },
+    "user": {
+      "type": ["string", "null"],
+      "description": "Username associated with the event"
+    },
+    "src_ip": {
+      "type": ["string", "null"],
+      "description": "Source IP address"
+    },
+    "dst_ip": {
+      "type": ["string", "null"],
+      "description": "Destination IP address"
+    },
+    "event_type": {
+      "type": "string",
+      "description": "Specific event type (e.g., auth_failure, web_access, fw_deny)"
+    },
+    "action": {
+      "type": ["string", "null"],
+      "description": "Action taken or path accessed"
+    },
+    "status": {
+      "type": ["string", "null"],
+      "enum": ["success", "failure", "info", null],
+      "description": "Event outcome status"
+    },
+    "severity_hint": {
+      "type": ["string", "null"],
+      "enum": ["low", "medium", "high", "critical", null],
+      "description": "Preliminary severity assessment"
+    },
+    "raw": {
+      "type": "object",
+      "description": "Original raw event data"
+    }
+  },
+  "required": ["timestamp", "source", "event_type"],
+  "examples": [
+    {
+      "timestamp": "2024-01-15T10:30:00Z",
+      "source": "auth",
+      "host": "srv-web-01",
+      "user": "alice",
+      "src_ip": "198.51.100.10",
+      "dst_ip": "10.0.2.20",
+      "event_type": "auth_failure",
+      "action": "Failed login attempt",
+      "status": "failure",
+      "severity_hint": "medium",
+      "raw": {}
+    }
+  ]
+}

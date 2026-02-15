@@ -1,0 +1,66 @@
+{
+  "meta": {
+    "generated_at": "2026-02-15T17:18:33.259419Z",
+    "version": "1.0",
+    "tool": "AI SOC Triage Assistant"
+  },
+  "incident": {
+    "incident_id": "INC-3681165",
+    "incident_type": "Credential Compromise",
+    "key": {
+      "host": "srv-web-01",
+      "user": "alice",
+      "src_ip": "45.33.32.156"
+    },
+    "time_range": {
+      "start": "2026-02-14T22:18:08.535041+00:00",
+      "end": "2026-02-14T22:58:08.535041+00:00",
+      "duration_minutes": 40.0
+    },
+    "signals": [
+      {
+        "signal": "possible_bruteforce",
+        "count": 30,
+        "description": "Detected 30 failed authentication attempts"
+      },
+      {
+        "signal": "bruteforce_then_success",
+        "count": 1,
+        "description": "Successful login detected after 30 failed attempts"
+      }
+    ],
+    "event_count": 31
+  },
+  "triage": {
+    "severity": "high",
+    "severity_score": 7.0,
+    "confidence": 0.95,
+    "mitre": [
+      {
+        "signal": "possible_bruteforce",
+        "technique": "T1110",
+        "technique_name": "Brute Force",
+        "tactic": "Credential Access",
+        "url": "https://attack.mitre.org/techniques/T1110/",
+        "description": "Adversaries may use brute force techniques to guess credentials."
+      },
+      {
+        "signal": "bruteforce_then_success",
+        "technique": "T1110",
+        "technique_name": "Brute Force",
+        "tactic": "Credential Access",
+        "url": "https://attack.mitre.org/techniques/T1110/",
+        "description": "Successful credential compromise following brute force attempts."
+      }
+    ],
+    "recommended_actions": [
+      "\u26a0\ufe0f PRIORITY: Credential compromise confirmed - immediate containment required",
+      "\ud83d\udd10 Check account lockout and MFA status for impacted user",
+      "\ud83d\udd0d Review authentication logs for the same source IP across other users",
+      "\ud83d\udeab Consider blocking or rate-limiting the suspicious source IP at the edge",
+      "\ud83d\udce7 Notify the affected user and verify recent login activity"
+    ],
+    "requires_immediate_attention": true
+  },
+  "summary": "## Incident Summary: INC-3681165\n\n**Type:** Credential Compromise\n**Severity:** HIGH (score: 7.0)\n**Confidence:** 95%\n**\u26a0\ufe0f REQUIRES IMMEDIATE ATTENTION**\n\n### Affected Assets\n- **Host:** srv-web-01\n- **User:** alice\n- **Source IP:** 45.33.32.156\n\n### Timeline\n- **Start:** 2026-02-14T22:18:08.535041+00:00\n- **End:** 2026-02-14T22:58:08.535041+00:00\n- **Duration:** 40.0 minutes\n- **Total Events:** 31\n\n### What Happened\n- Detected 30 failed authentication attempts\n- Successful login detected after 30 failed attempts\n\n### Attack Narrative\nAn attacker from 45.33.32.156 attempted to gain access to the account 'alice' on srv-web-01 through brute force, generating 30 failed login attempts. The brute force attack was successful. The attacker gained valid credentials and authenticated to the system. This represents a confirmed credential compromise.\n\n### MITRE ATT&CK Mapping\n- **T1110** - Brute Force (Credential Access)\n  - Adversaries may use brute force techniques to guess credentials.\n- **T1110** - Brute Force (Credential Access)\n  - Successful credential compromise following brute force attempts.\n\n### Recommended Actions\n1. \u26a0\ufe0f PRIORITY: Credential compromise confirmed - immediate containment required\n2. \ud83d\udd10 Check account lockout and MFA status for impacted user\n3. \ud83d\udd0d Review authentication logs for the same source IP across other users\n4. \ud83d\udeab Consider blocking or rate-limiting the suspicious source IP at the edge\n5. \ud83d\udce7 Notify the affected user and verify recent login activity\n"
+}

@@ -1,0 +1,57 @@
+{
+  "meta": {
+    "generated_at": "2026-02-15T17:18:33.258432Z",
+    "version": "1.0",
+    "tool": "AI SOC Triage Assistant"
+  },
+  "incident": {
+    "incident_id": "INC-4892600",
+    "incident_type": "Malicious Process Execution",
+    "key": {
+      "host": "wkst-02",
+      "user": "bob",
+      "src_ip": "unknown"
+    },
+    "time_range": {
+      "start": "2026-02-14T17:39:08.535041+00:00",
+      "end": "2026-02-15T01:42:08.535041+00:00",
+      "duration_minutes": 483.0
+    },
+    "signals": [
+      {
+        "signal": "suspicious_process_execution",
+        "count": 3,
+        "processes": [
+          "whoami.exe",
+          "mimikatz.exe"
+        ],
+        "description": "Execution of known attack tools: whoami.exe, mimikatz.exe"
+      }
+    ],
+    "event_count": 8
+  },
+  "triage": {
+    "severity": "medium",
+    "severity_score": 4.0,
+    "confidence": 0.82,
+    "mitre": [
+      {
+        "signal": "suspicious_process_execution",
+        "technique": "T1059",
+        "technique_name": "Command and Scripting Interpreter",
+        "tactic": "Execution",
+        "url": "https://attack.mitre.org/techniques/T1059/",
+        "description": "Adversaries may abuse command interpreters to execute commands."
+      }
+    ],
+    "recommended_actions": [
+      "\ud83d\udd34 CRITICAL: Malicious tool execution detected - consider host isolation",
+      "\ud83d\udcbb Review process execution history on the affected host",
+      "\ud83d\udd2c Collect and analyze any suspicious executables",
+      "\ud83e\uddf9 Run malware scan on the affected endpoint",
+      "\ud83d\udcf8 Capture memory dump if active compromise suspected"
+    ],
+    "requires_immediate_attention": false
+  },
+  "summary": "## Incident Summary: INC-4892600\n\n**Type:** Malicious Process Execution\n**Severity:** MEDIUM (score: 4.0)\n**Confidence:** 82%\n\n### Affected Assets\n- **Host:** wkst-02\n- **User:** bob\n- **Source IP:** unknown\n\n### Timeline\n- **Start:** 2026-02-14T17:39:08.535041+00:00\n- **End:** 2026-02-15T01:42:08.535041+00:00\n- **Duration:** 483.0 minutes\n- **Total Events:** 8\n\n### What Happened\n- Execution of known attack tools: whoami.exe, mimikatz.exe\n\n### Attack Narrative\nSuspicious processes were executed on wkst-02: whoami.exe, mimikatz.exe. These are known attack tools commonly used for credential theft or lateral movement.\n\n### MITRE ATT&CK Mapping\n- **T1059** - Command and Scripting Interpreter (Execution)\n  - Adversaries may abuse command interpreters to execute commands.\n\n### Recommended Actions\n1. \ud83d\udd34 CRITICAL: Malicious tool execution detected - consider host isolation\n2. \ud83d\udcbb Review process execution history on the affected host\n3. \ud83d\udd2c Collect and analyze any suspicious executables\n4. \ud83e\uddf9 Run malware scan on the affected endpoint\n5. \ud83d\udcf8 Capture memory dump if active compromise suspected\n"
+}
